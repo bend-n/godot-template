@@ -1,0 +1,8 @@
+.import/
+logs/
+*.sh
+*.py
+*.pgn
+.vscode/
+exports/
+*.x86_64

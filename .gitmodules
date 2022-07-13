@@ -1,0 +1,3 @@
+[submodule "gdcli"]
+	path = submodules/gdcli
+	url = https://github.com/bend-n/gdcli

@@ -1,0 +1,79 @@
+name: "export"
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "**.gd"
+      - "**.tscn"
+      - "**.import"
+    branches:
+      - main
+
+env:
+  GODOT_VERSION: 3.4.4
+  NAME: ${{ github.event.repository.name }}
+
+jobs:
+  export-windows:
+    name: Windows Export
+    runs-on: ubuntu-20.04
+    container:
+      image: docker://barichello/godot-ci:3.4.4
+    steps:
+      - name: Build
+        uses: bend-n/godot-actions/.github/actions/export-windows@main
+
+  export-linux:
+    name: Linux Export
+    runs-on: ubuntu-20.04
+    container:
+      image: docker://barichello/godot-ci:3.4.4
+    steps:
+      - name: Build
+        uses: bend-n/godot-actions/.github/actions/export-linux@main
+
+  export-web:
+    name: Web Export
+    runs-on: ubuntu-20.04
+    container:
+      image: docker://barichello/godot-ci:3.4.4
+    steps:
+      - name: Build
+        uses: bend-n/godot-actions/.github/actions/export-web@main
+
+  export-mac:
+    name: Mac Export
+    runs-on: ubuntu-20.04
+    container:
+      image: docker://barichello/godot-ci:3.4.4
+    steps:
+      - name: Build
+        uses: bend-n/godot-actions/.github/actions/export-mac@main
+
+  export-android:
+    name: Android Export
+    runs-on: ubuntu-20.04
+    container:
+      image: docker://barichello/godot-ci:3.4.4
+    steps:
+      - name: Build
+        uses: bend-n/godot-actions/.github/actions/export-android@main
+        with:
+          android-keystore-base64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          android-password: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+
+  push-itch:
+    needs:
+      [export-windows, export-linux, export-web, export-mac, export-android]
+    name: Push to itch.io
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check for api key
+        id: secret
+        run: echo '::set-output name=secret::${{ secrets.BUTLER_CREDENTIALS }}'
+
+      - name: Push
+        if: steps.secret.outputs.secret
+        uses: bend-n/godot-actions/.github/actions/itch-push@main
+        with:
+          api-key: ${{ secrets.BUTLER_CREDENTIALS }}
