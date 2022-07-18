@@ -10,15 +10,15 @@ on:
       - main
 
 env:
-  GODOT_VERSION: 3.4.4
+  GODOT_VERSION: 3.5
+  SUBDIR: /rc6
+  RELEASE: rc6 # https://downloads.tuxfamily.org/godotengine/3.5/rc6/
   NAME: ${{ github.event.repository.name }}
 
 jobs:
   export-windows:
     name: Windows Export
     runs-on: ubuntu-20.04
-    container:
-      image: docker://barichello/godot-ci:3.4.4
     steps:
       - name: Build
         uses: bend-n/godot-actions/.github/actions/export-windows@main
@@ -26,8 +26,6 @@ jobs:
   export-linux:
     name: Linux Export
     runs-on: ubuntu-20.04
-    container:
-      image: docker://barichello/godot-ci:3.4.4
     steps:
       - name: Build
         uses: bend-n/godot-actions/.github/actions/export-linux@main
@@ -35,8 +33,6 @@ jobs:
   export-web:
     name: Web Export
     runs-on: ubuntu-20.04
-    container:
-      image: docker://barichello/godot-ci:3.4.4
     steps:
       - name: Build
         uses: bend-n/godot-actions/.github/actions/export-web@main
@@ -44,8 +40,6 @@ jobs:
   export-mac:
     name: Mac Export
     runs-on: ubuntu-20.04
-    container:
-      image: docker://barichello/godot-ci:3.4.4
     steps:
       - name: Build
         uses: bend-n/godot-actions/.github/actions/export-mac@main
@@ -53,8 +47,6 @@ jobs:
   export-android:
     name: Android Export
     runs-on: ubuntu-20.04
-    container:
-      image: docker://barichello/godot-ci:3.4.4
     steps:
       - name: Build
         uses: bend-n/godot-actions/.github/actions/export-android@main
