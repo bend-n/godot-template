@@ -18,57 +18,55 @@ env:
   NAME: ${{ github.event.repository.name }}
 
 jobs:
-  export-windows:
-    name: Windows Export
-    runs-on: ubuntu-20.04
+  export:
+    runs-on: ubuntu-latest
     container:
       image: ghcr.io/bend-n/godot-2d:3.5.rc
+    name: ${{ matrix.name }}
+    strategy:
+      matrix:
+        include:
+          - name: Windows export
+            platform: windows
+
+          - name: Linux export
+            platform: linux
+
+          - name: Mac export
+            platform: mac
+
+          - name: Web export
+            platform: web
+
+          - name: Android export
+            platform: android
+
     steps:
-      - name: Build
+      - name: Build (Windows)
+        if: matrix.platform == 'windows'
         uses: bend-n/godot-actions/.github/actions/export-windows@main
 
-  export-linux:
-    name: Linux Export
-    runs-on: ubuntu-20.04
-    container:
-      image: ghcr.io/bend-n/godot-2d:3.5.rc
-    steps:
-      - name: Build
+      - name: Build (Linux)
+        if: matrix.platform == 'linux'
         uses: bend-n/godot-actions/.github/actions/export-linux@main
 
-  export-web:
-    name: Web Export
-    runs-on: ubuntu-20.04
-    container:
-      image: ghcr.io/bend-n/godot-2d:3.5.rc
-    steps:
-      - name: Build
-        uses: bend-n/godot-actions/.github/actions/export-web@main
-
-  export-mac:
-    name: Mac Export
-    runs-on: ubuntu-20.04
-    container:
-      image: ghcr.io/bend-n/godot-2d:3.5.rc
-    steps:
-      - name: Build
+      - name: Build (Mac)
+        if: matrix.platform == 'mac'
         uses: bend-n/godot-actions/.github/actions/export-mac@main
 
-  export-android:
-    name: Android Export
-    runs-on: ubuntu-20.04
-    container:
-      image: ghcr.io/bend-n/godot-2d:3.5.rc
-    steps:
-      - name: Build
+      - name: Build (Web)
+        if: matrix.platform == 'web'
+        uses: bend-n/godot-actions/.github/actions/export-web@main
+
+      - name: Build (Android)
+        if: matrix.platform == 'android'
         uses: bend-n/godot-actions/.github/actions/export-android@main
         with:
           android-keystore-base64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
           android-password: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
 
   push-itch:
-    needs:
-      [export-windows, export-linux, export-web, export-mac, export-android]
+    needs: [export]
     name: Push to itch.io
     runs-on: ubuntu-20.04
     steps:
