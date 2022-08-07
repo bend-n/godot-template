@@ -14,14 +14,13 @@ on:
 
 env:
   GODOT_VERSION: 3.5
-  RELEASE: rc
   NAME: ${{ github.event.repository.name }}
 
 jobs:
   export:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/bend-n/godot-2d:3.5.rc
+      image: ghcr.io/bend-n/godot-2d:3.5
     name: ${{ matrix.name }}
     strategy:
       matrix:
