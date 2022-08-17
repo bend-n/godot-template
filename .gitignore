@@ -6,3 +6,4 @@ logs/
 .vscode/
 exports/
 *.x86_64
+addons/gdcli

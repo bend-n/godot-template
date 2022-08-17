@@ -1,0 +1,6 @@
+{
+	"@bendn/gdcli": {
+		"version": "1.2.5",
+		"integrity": "sha512-/YOAd1+K4JlKvPTmpX8B7VWxGtFrxKq4R0A6u5qOaaVPK6uGsl4dGZaIHpxuqcurEcwPEOabkoShXKZaOXB0lw=="
+	}
+}

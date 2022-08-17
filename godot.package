@@ -1,0 +1,6 @@
+{
+    "name": "godot-template",
+    "packages": {
+        "@bendn/gdcli": "1.2.5"
+    }
+}

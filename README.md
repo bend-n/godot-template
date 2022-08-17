@@ -9,8 +9,11 @@ Godot template repository for my programs
 
 ## How to use
 
+> **Note** This template uses the [gpm](https://github.com/you-win/godot-package-manager).
+
 - Click use this template button
 - Clone your new repository
+- Run install_addons.sh
 - Add your files & change `FUNDING.yml`
 - Commit & push
 
@@ -39,7 +42,7 @@ Add two secrets:
 
 ---
 
-### Availability
+### CI Availability
 
 |      windows       | ios |       linux        |      android       |        mac         |        html        |               |
 | :----------------: | :-: | :----------------: | :----------------: | :----------------: | :----------------: | :-----------: |
