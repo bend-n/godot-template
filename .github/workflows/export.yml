@@ -8,7 +8,8 @@ on:
       - "**.import"
       - "**.tres"
       - "**.ttf"
-      - "**.yml"
+      - ".github/workflows/export.yml"
+      - "export_presets.cfg"
     branches:
       - main
 
