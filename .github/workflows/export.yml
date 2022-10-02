@@ -1,8 +1,8 @@
-name: "export"
-on:
-  workflow_dispatch:
-  push:
-    paths:
+name: "export" # name of the workflow
+on: # when it is triggered
+  workflow_dispatch: # manually
+  push: # on push
+    paths: # with modifications to these files
       - "**.gd"
       - "**.tscn"
       - "**.import"
@@ -10,72 +10,18 @@ on:
       - "**.ttf"
       - ".github/workflows/export.yml"
       - "export_presets.cfg"
-    branches:
+    branches: # on this branch
       - main
 
-env:
-  GODOT_VERSION: 3.5
-  NAME: ${{ github.event.repository.name }}
-
-jobs:
-  export:
-    runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/bend-n/godot-2d:3.5
-    name: ${{ matrix.name }}
-    strategy:
-      matrix:
-        include:
-          - name: Windows export
-            platform: windows
-
-          - name: Linux export
-            platform: linux
-
-          - name: Mac export
-            platform: mac
-
-          - name: Web export
-            platform: web
-
-          - name: Android export
-            platform: android
-
-    steps:
-      - name: Build (Windows)
-        if: matrix.platform == 'windows'
-        uses: bend-n/godot-actions/.github/actions/export-windows@main
-
-      - name: Build (Linux)
-        if: matrix.platform == 'linux'
-        uses: bend-n/godot-actions/.github/actions/export-linux@main
-
-      - name: Build (Mac)
-        if: matrix.platform == 'mac'
-        uses: bend-n/godot-actions/.github/actions/export-mac@main
-
-      - name: Build (Web)
-        if: matrix.platform == 'web'
-        uses: bend-n/godot-actions/.github/actions/export-web@main
-
-      - name: Build (Android)
-        if: matrix.platform == 'android'
-        uses: bend-n/godot-actions/.github/actions/export-android@main
-        with:
-          android-keystore-base64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
-          android-password: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-
-  push-itch:
-    needs: [export]
-    name: Push to itch.io
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Check for api key
-        id: secret
-        run: echo '::set-output name=secret::${{ secrets.BUTLER_CREDENTIALS }}'
-
-      - name: Push
-        if: steps.secret.outputs.secret
-        uses: bend-n/godot-actions/.github/actions/itch-push@main
-        with:
-          api-key: ${{ secrets.BUTLER_CREDENTIALS }}
+jobs: # the things to do
+  export: # a thing to do
+    uses: bend-n/godot-actions/.github/workflows/callable-export.yml@main
+    with: # variables
+      export-name: ${{ github.event.repository.name }} # the name of the zipfile
+      godot-version: 3.5 # the godot version
+      image: ghcr.io/bend-n/godot-2d:3.5 # the container to use
+      platforms: "windows linux web android mac" # space seperated list of platforms to build
+    secrets: # secrets
+      android-keystore-base64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }} # not required
+      android-keystore-password: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }} # not required
+      butler-api-key: ${{ secrets.BUTLER_CREDENTIALS }} # required for itch.io
