@@ -9,7 +9,8 @@ Godot template repository for my programs
 
 ## How to use
 
-> **Note** This template uses the [gpm](https://github.com/you-win/godot-package-manager).
+> **Note**
+> This template uses the [gpm](https://github.com/you-win/godot-package-manager).
 
 - Click use this template button
 - Clone your new repository
@@ -30,8 +31,8 @@ Add a secret called `BUTLER_CREDENTIALS` with your [butler api key](https://itch
 <br>
 
 > **Note**
->
 > The keystore user/alias is found automatically.
+> If the `ANDROID_KEYSTORE_BASE64` field is not filled, the action will use the android debug keystore.
 
 Add two secrets:
 
