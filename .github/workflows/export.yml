@@ -23,7 +23,8 @@ jobs: # the things to do
       platforms: "windows linux web android mac" # space seperated list of platforms to build
       project-root-path: "." # the directory that project.godot is in
       github-pages: "true" # to deploy to github pages or not (anything besides 'true' == false)
+      itch-path: "${{ github.repository_owner }}/${{ github.event.repository.name }}" # required for itch.io deployment.
     secrets: # secrets
+      butler-api-key: ${{ secrets.BUTLER_CREDENTIALS }} # required for itch.io deployment
       android-keystore-base64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }} # for signing the apk, not required
       android-keystore-password: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }} # ditto
-      butler-api-key: ${{ secrets.BUTLER_CREDENTIALS }} # required for itch.io deployment
