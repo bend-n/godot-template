@@ -17,7 +17,6 @@ jobs: # the things to do
   export: # a thing to do
     uses: bend-n/godot-actions/.github/workflows/callable-export.yml@main
     with: # variables
-      godot-version: 3.5 # the godot version
       image: ghcr.io/bend-n/godot-2d:3.5 # the container to use
       export-name: ${{ github.event.repository.name }} # the name of the exec. ($export-name.exe)
       platforms: "windows linux web android mac" # space seperated list of platforms to build
