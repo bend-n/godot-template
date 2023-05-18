@@ -17,11 +17,11 @@ jobs: # the things to do
   export: # a thing to do
     uses: bend-n/godot-actions/.github/workflows/callable-export.yml@main
     with: # variables
-      image: ghcr.io/bend-n/godot-2d:3.5 # the container to use
+      image: ghcr.io/bend-n/godot-2d:4.0.2 # the container to use (remove the `-2d` if 3d)
       export-name: ${{ github.event.repository.name }} # the name of the exec. ($export-name.exe)
       platforms: "windows linux web android mac" # space seperated list of platforms to build
       project-root-path: "." # the directory that project.godot is in
-      github-pages: "true" # to deploy to github pages or not (anything besides 'true' == false)
+      github-pages: "true" # to deploy html build to github pages or not (anything besides 'true' == false)
       itch-path: "${{ github.repository_owner }}/${{ github.event.repository.name }}" # required for itch.io deployment.
     secrets: # secrets
       butler-api-key: ${{ secrets.BUTLER_CREDENTIALS }} # required for itch.io deployment

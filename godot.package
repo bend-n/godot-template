@@ -1,5 +1,5 @@
 {
     "packages": {
-        "@bendn/gdcli": "1.2.5"
+        "@bendn/gdcli": "^2"
     }
 }
