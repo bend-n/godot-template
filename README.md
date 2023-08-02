@@ -1,7 +1,6 @@
 # godot-template
 
 [![version](https://img.shields.io/badge/4.x-blue?logo=godot-engine&logoColor=white&label=godot&style=for-the-badge)](https://godotengine.org "Made with godot")
-<a href='https://ko-fi.com/bendn' title='Buy me a coffee' target='_blank'><img height='28' src='https://storage.ko-fi.com/cdn/brandasset/kofi_button_red.png' alt='Buy me a coffee'> </a>
 
 Godot template repository for my programs
 
@@ -10,7 +9,7 @@ Godot template repository for my programs
 ## How to use
 
 > **Note**
-> This template uses the [gpm](https://github.com/you-win/godot-package-manager).
+> This template uses the [gpm](https://github.com/godot-package-manager#the-godot-package-manager).
 
 - Click use this template button
 - Clone your new repository
